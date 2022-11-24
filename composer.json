@@ -16,8 +16,8 @@
     "require-dev": {
         "phpunit/phpunit": "^8.5.13",
         "laminas/laminas-diactoros": "^2.4.1",
-        "phpstan/phpstan": "^0.12.57",
-        "phpstan/phpstan-phpunit": "^0.12.16",
+        "phpstan/phpstan":  "^1.9",
+        "phpstan/phpstan-phpunit": "^1.1",
         "roave/security-advisories": "dev-master"
     },
     "repositories": [
@@ -53,6 +53,12 @@
             "name": "Andy Millington",
             "email": "andrew@noexceptions.io",
             "homepage": "https://www.noexceptions.io",
+            "role": "Developer"
+        },
+        {
+            "name": "Marc Riemer",
+            "email": "mail@marcriemer.de",
+            "homepage": "https://marcriemer.de",
             "role": "Developer"
         }
     ],
