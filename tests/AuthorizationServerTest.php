@@ -250,6 +250,7 @@ class AuthorizationServerTest extends TestCase
         $authRequest->setClient(new ClientEntity());
         $authRequest->setGrantTypeId('authorization_code');
         $authRequest->setUser(new UserEntity());
+        $authRequest->setRedirectUri("https://example.com/callback");
 
         $this->assertInstanceOf(
             ResponseInterface::class,

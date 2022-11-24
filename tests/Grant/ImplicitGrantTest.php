@@ -214,6 +214,7 @@ class ImplicitGrantTest extends TestCase
         $authRequest->setClient($client);
         $authRequest->setGrantTypeId('authorization_code');
         $authRequest->setUser(new UserEntity());
+        $authRequest->setRedirectUri("https://example.com/callback");
 
         $accessToken = new AccessTokenEntity();
         $accessToken->setClient($client);
@@ -240,6 +241,7 @@ class ImplicitGrantTest extends TestCase
         $authRequest->setClient(new ClientEntity());
         $authRequest->setGrantTypeId('authorization_code');
         $authRequest->setUser(new UserEntity());
+        $authRequest->setRedirectUri("https://example.com/callback");
 
         $accessTokenRepositoryMock = $this->getMockBuilder(AccessTokenRepositoryInterface::class)->getMock();
         $accessTokenRepositoryMock->method('getNewToken')->willReturn(new AccessTokenEntity());
@@ -269,6 +271,7 @@ class ImplicitGrantTest extends TestCase
         $authRequest->setClient($client);
         $authRequest->setGrantTypeId('authorization_code');
         $authRequest->setUser(new UserEntity());
+        $authRequest->setRedirectUri("https://example.com/callback");
 
         $accessToken = new AccessTokenEntity();
         $accessToken->setClient($client);
@@ -306,6 +309,7 @@ class ImplicitGrantTest extends TestCase
         $authRequest->setClient(new ClientEntity());
         $authRequest->setGrantTypeId('authorization_code');
         $authRequest->setUser(new UserEntity());
+        $authRequest->setRedirectUri("https://example.com/callback");
 
         /** @var AccessTokenRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject $accessTokenRepositoryMock */
         $accessTokenRepositoryMock = $this->getMockBuilder(AccessTokenRepositoryInterface::class)->getMock();
