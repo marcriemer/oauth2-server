@@ -144,7 +144,7 @@ interface GrantTypeInterface extends EmitterAwareInterface
 
     /**
      * Revoke refresh token
-     * 
+     *
      * @param bool $revokeRefreshTokens
      */
     public function revokeRefreshTokens(bool $revokeRefreshTokens);
