@@ -2,16 +2,16 @@
 
 namespace League\OAuth2\Server;
 
-use Lcobucci\JWT\Token\Builder;
+use Lcobucci\JWT\Builder;
 
 /**
- * IdTokenClaimsCreated Event helps to extend claims of the id_token
+ * IdTokenClaimsCreatedEvent Event helps to extend claims of the id_token
  *
  * A usecase is to add nonce If requested by the client
  *
  * @author Marc Riemer <mail@marcriemer.de>
  */
-final class IdTokenClaimsCreated extends IdTokenEvent
+final class IdTokenClaimsCreatedEvent extends IdTokenEvent
 {
     /**
      * Builder
