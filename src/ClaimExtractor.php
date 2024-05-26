@@ -51,9 +51,9 @@ class ClaimExtractor implements ClaimExtractorInterface
      */
     public function addClaimSet(ClaimSetEntryInterface $claimSetEntry): ClaimExtractor
     {
-        if (in_array($claimSetEntry->getScope(), $this->protectedClaims) && !$this->getClaimSet($claimSetEntry->getScope())) {
+        if (\in_array($claimSetEntry->getScope(), $this->protectedClaims) && !$this->getClaimSet($claimSetEntry->getScope())) {
             throw new \InvalidArgumentException(
-                sprintf('%s is a protected scope and is pre-defined by the OpenID Connect specification.', $claimSetEntry->getScope())
+                \sprintf('%s is a protected scope and is pre-defined by the OpenID Connect specification.', $claimSetEntry->getScope())
             );
         }
 
@@ -88,7 +88,7 @@ class ClaimExtractor implements ClaimExtractorInterface
      */
     public function extract(array $scopes, array $claims): array
     {
-        $claimData  = [];
+        $claimData = [];
         $keys = \array_keys($claims);
 
         foreach ($scopes as $scope) {

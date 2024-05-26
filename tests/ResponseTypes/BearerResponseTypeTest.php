@@ -14,7 +14,6 @@ use League\OAuth2\Server\ClaimExtractor;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClaimSetEntryInterface;
-use League\OAuth2\Server\Entities\ClaimSetInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\ClaimSetRepositoryInterface;
@@ -85,17 +84,17 @@ class BearerResponseTypeTest extends TestCase
             [],
             [],
             [
-                'grant_type'   => 'authorization_code',
-                'client_id'    => 'foo',
+                'grant_type' => 'authorization_code',
+                'client_id' => 'foo',
                 'redirect_uri' => 'https://example.com/callback',
-                'code'         => 'code',
+                'code' => 'code',
             ]
         );
 
-        $claimSetRepository = new class () implements ClaimSetRepositoryInterface {
+        $claimSetRepository = new class() implements ClaimSetRepositoryInterface {
             public function getClaimSetEntry(AccessTokenEntityInterface $accessToken): ClaimSetEntryInterface
             {
-                $claimSet = new class () implements ClaimSetEntryInterface {
+                $claimSet = new class() implements ClaimSetEntryInterface {
                     public string $scope = 'openid';
 
                     /**
