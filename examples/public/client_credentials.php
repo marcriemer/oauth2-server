@@ -20,7 +20,7 @@ use Slim\App;
 include __DIR__ . '/../vendor/autoload.php';
 
 $app = new App([
-    'settings'                 => [
+    'settings' => [
         'displayErrorDetails' => true,
     ],
     AuthorizationServer::class => function () {
@@ -53,20 +53,16 @@ $app = new App([
 ]);
 
 $app->post('/access_token', function (ServerRequestInterface $request, ResponseInterface $response) use ($app) {
-
     /* @var \League\OAuth2\Server\AuthorizationServer $server */
     $server = $app->getContainer()->get(AuthorizationServer::class);
 
     try {
-
         // Try to respond to the request
         return $server->respondToAccessTokenRequest($request, $response);
     } catch (OAuthServerException $exception) {
-
         // All instances of OAuthServerException can be formatted into a HTTP response
         return $exception->generateHttpResponse($response);
     } catch (\Exception $exception) {
-
         // Unknown exception
         $body = new Stream('php://temp', 'r+');
         $body->write($exception->getMessage());

@@ -84,10 +84,10 @@ class BearerResponseTypeTest extends TestCase
             [],
             [],
             [
-                'grant_type'   => 'authorization_code',
-                'client_id'    => 'foo',
+                'grant_type' => 'authorization_code',
+                'client_id' => 'foo',
                 'redirect_uri' => 'https://example.com/callback',
-                'code'         => 'code',
+                'code' => 'code',
             ]
         );
 
