@@ -4,6 +4,7 @@ namespace League\OAuth2\Server;
 
 use League\OAuth2\Server\Entities\ClaimSetEntry;
 use League\OAuth2\Server\Entities\ClaimSetEntryInterface;
+use League\OAuth2\Server\Entities\ClaimSetInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 
 /**
@@ -21,9 +22,14 @@ class ClaimExtractor implements ClaimExtractorInterface
      *
      * @var ClaimSetEntryInterface[]
      */
-    protected $claimSets = [];
+    protected array $claimSets = [];
 
-    protected $protectedClaims = ['profile', 'email', 'address', 'phone'];
+    /**
+     * Protected claims
+     *
+     * @var string[]
+     */
+    protected array $protectedClaims = ['profile', 'email', 'address', 'phone'];
 
     /**
      * ClaimExtractor constructor
@@ -39,32 +45,23 @@ class ClaimExtractor implements ClaimExtractorInterface
     }
 
     /**
-     * @param ClaimSetEntryInterface $claimSetEntry
-     *
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
     public function addClaimSet(ClaimSetEntryInterface $claimSetEntry): ClaimExtractor
     {
-        $scope = $claimSetEntry->getScope();
-
-        if (\in_array($scope, $this->protectedClaims) && !empty($this->claimSets[$scope])) {
+        if (in_array($claimSetEntry->getScope(), $this->protectedClaims) && !$this->getClaimSet($claimSetEntry->getScope())) {
             throw new \InvalidArgumentException(
-                \sprintf('%s is a protected scope and is pre-defined by the OpenID Connect specification.', $scope)
+                sprintf('%s is a protected scope and is pre-defined by the OpenID Connect specification.', $claimSetEntry->getScope())
             );
         }
 
-        $this->claimSets[$scope] = $claimSetEntry->getClaims();
+        $this->claimSets[] = $claimSetEntry;
 
         return $this;
     }
 
-    /**
-     * @param string $scope
-     *
-     * @return ClaimSetEntryInterface|null
-     */
     public function getClaimSet(string $scope): ?ClaimSetEntryInterface
     {
         foreach ($this->claimSets as $set) {
@@ -79,7 +76,7 @@ class ClaimExtractor implements ClaimExtractorInterface
     /**
      * Get claimSets
      *
-     * @return array
+     * @return ClaimSetInterface[]
      */
     public function getClaimSets(): array
     {
@@ -158,6 +155,13 @@ class ClaimExtractor implements ClaimExtractorInterface
             new ClaimSetEntry('phone', [
                 'phone_number',
                 'phone_number_verified',
+            ]),
+            new ClaimSetEntry('openid', [
+                'nonce',
+                'auth_time',
+                'acr',
+                'amr',
+                'azp',
             ]),
         ];
     }

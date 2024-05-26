@@ -13,6 +13,7 @@ use League\OAuth2\Server\AuthorizationValidators\BearerTokenValidator;
 use League\OAuth2\Server\ClaimExtractor;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
+use League\OAuth2\Server\Entities\ClaimSetEntryInterface;
 use League\OAuth2\Server\Entities\ClaimSetInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
@@ -91,26 +92,30 @@ class BearerResponseTypeTest extends TestCase
             ]
         );
 
-        $claimSetRepository = new class() implements ClaimSetRepositoryInterface {
-            public function getClaimSetEntry(AccessTokenEntityInterface $accessToken): ClaimSetInterface
+        $claimSetRepository = new class () implements ClaimSetRepositoryInterface {
+            public function getClaimSetEntry(AccessTokenEntityInterface $accessToken): ClaimSetEntryInterface
             {
-                $claimSet = new class() implements ClaimSetInterface {
-                    public array $claims = [];
+                $claimSet = new class () implements ClaimSetEntryInterface {
+                    public string $scope = 'openid';
 
+                    /**
+                     * @var array<string, string>
+                     */
+                    public array $claims = ['acr' => 'pop'];
+
+                    public function getScope(): string
+                    {
+                        return $this->scope;
+                    }
+
+                    /**
+                     * @return array<string, string> $claims
+                     */
                     public function getClaims(): array
                     {
                         return $this->claims;
                     }
                 };
-                foreach (ClaimExtractor::getDefaultClaimSetEnties() as $setEntry) {
-                    foreach ($accessToken->getScopes() as $scope) {
-                        if ($setEntry->getScope() === $scope->getIdentifier()) {
-                            foreach ($setEntry->getClaims() as $claim) {
-                                $claimSet->claims[$claim] = $claim;
-                            }
-                        }
-                    }
-                }
 
                 return $claimSet;
             }
@@ -251,6 +256,7 @@ class BearerResponseTypeTest extends TestCase
             foreach ($claimExtrator->extract($accessToken->getScopes(), $claimSetRepository->getClaimSetEntry($accessToken)->getClaims()) as $claim => $value) {
                 $this->assertTrue($validator->validate($token, new \Lcobucci\JWT\Validation\Constraint\HasClaimWithValue($claim, $value)));
             }
+            $this->assertTrue($validator->validate($token, new \Lcobucci\JWT\Validation\Constraint\HasClaimWithValue('acr', 'pop')));
             $this->assertTrue($validator->validate($token, new \Lcobucci\JWT\Validation\Constraint\HasClaimWithValue('nonce', 's6G31Kolwu9p')));
         } else {
             foreach ($claimExtrator->extract($accessToken->getScopes(), $claimSetRepository->getClaimSetEntry($accessToken)->getClaims()) as $claim => $value) {
