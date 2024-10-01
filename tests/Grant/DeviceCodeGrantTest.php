@@ -331,8 +331,15 @@ class DeviceCodeGrantTest extends TestCase
         $clientRepositoryMock->method('getClientEntity')->willReturn($client);
         $clientRepositoryMock->method('validateClient')->willReturn(true);
 
-        $scope = new ScopeEntity();
-        $scope->setIdentifier('foo');
+        $accessTokenRepositoryMock = $this->getMockBuilder(AccessTokenRepositoryInterface::class)->getMock();
+        $accessToken = new AccessTokenEntity();
+        $accessToken->setClient($client);
+        $accessTokenRepositoryMock->method('getNewToken')->willReturn($accessToken);
+        $accessTokenRepositoryMock->method('persistNewAccessToken')->willReturnSelf();
+
+        $refreshTokenRepositoryMock = $this->getMockBuilder(RefreshTokenRepositoryInterface::class)->getMock();
+        $refreshTokenRepositoryMock->method('persistNewRefreshToken')->willReturnSelf();
+        $refreshTokenRepositoryMock->method('getNewRefreshToken')->willReturn(new RefreshTokenEntity());
 
         $deviceCodeRepositoryMock = $this->getMockBuilder(DeviceCodeRepositoryInterface::class)->getMock();
         $deviceCodeEntity = new DeviceCodeEntity();
