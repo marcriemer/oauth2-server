@@ -6,23 +6,6 @@ namespace LeagueTests\ResponseTypes;
 
 use DateInterval;
 use DateTimeImmutable;
-use Laminas\Diactoros\Response;
-use Laminas\Diactoros\ServerRequest;
-use Lcobucci\Clock\SystemClock;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Encoding\ChainedFormatter;
-use Lcobucci\JWT\Encoding\JoseEncoder;
-use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Signer\Rsa\Sha256;
-use Lcobucci\JWT\Token\Builder as TokenBuilder;
-use Lcobucci\JWT\Token\Parser;
-use Lcobucci\JWT\Validation\Constraint\HasClaimWithValue;
-use Lcobucci\JWT\Validation\Constraint\IssuedBy;
-use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
-use Lcobucci\JWT\Validation\Constraint\PermittedFor;
-use Lcobucci\JWT\Validation\Constraint\RelatedTo;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use Lcobucci\JWT\Validation\Validator;
 use League\OAuth2\Server\AuthorizationValidators\BearerTokenValidator;
 use League\OAuth2\Server\ClaimExtractor;
 use League\OAuth2\Server\CryptKey;
@@ -39,6 +22,8 @@ use LeagueTests\Stubs\AccessTokenEntity;
 use LeagueTests\Stubs\ClientEntity;
 use LeagueTests\Stubs\RefreshTokenEntity;
 use LeagueTests\Stubs\ScopeEntity;
+use Nyholm\Psr7\Response;
+use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
@@ -172,7 +157,7 @@ class BearerResponseTypeTest extends TestCase
         $authorizationValidator = new BearerTokenValidator($accessTokenRepositoryMock);
         $authorizationValidator->setPublicKey(new CryptKey('file://' . __DIR__ . '/../Stubs/public.key'));
 
-        $request = (new ServerRequest())->withHeader('authorization', sprintf('Bearer %s', $json->access_token));
+        $request = (new ServerRequest('', ''))->withHeader('authorization', sprintf('Bearer %s', $json->access_token));
 
         $request = $authorizationValidator->validateAuthorization($request);
 
@@ -214,7 +199,7 @@ class BearerResponseTypeTest extends TestCase
         $authorizationValidator = new BearerTokenValidator($accessTokenRepositoryMock);
         $authorizationValidator->setPublicKey(new CryptKey('file://' . __DIR__ . '/../Stubs/public.key'));
 
-        $request = (new ServerRequest())->withHeader('authorization', sprintf('Bearer %s', $json->access_token));
+        $request = (new ServerRequest('', ''))->withHeader('authorization', sprintf('Bearer %s', $json->access_token));
 
         try {
             $authorizationValidator->validateAuthorization($request);
@@ -259,7 +244,7 @@ class BearerResponseTypeTest extends TestCase
         $authorizationValidator = new BearerTokenValidator($accessTokenRepositoryMock);
         $authorizationValidator->setPublicKey(new CryptKey('file://' . __DIR__ . '/../Stubs/public.key'));
 
-        $request = (new ServerRequest())->withHeader('authorization', sprintf('Bearer %s', $json->access_token));
+        $request = (new ServerRequest('', ''))->withHeader('authorization', sprintf('Bearer %s', $json->access_token));
 
         try {
             $authorizationValidator->validateAuthorization($request);
@@ -282,7 +267,7 @@ class BearerResponseTypeTest extends TestCase
         $authorizationValidator = new BearerTokenValidator($accessTokenRepositoryMock);
         $authorizationValidator->setPublicKey(new CryptKey('file://' . __DIR__ . '/../Stubs/public.key'));
 
-        $request = (new ServerRequest())->withHeader('authorization', 'Bearer blah');
+        $request = (new ServerRequest('', ''))->withHeader('authorization', 'Bearer blah');
 
         try {
             $authorizationValidator->validateAuthorization($request);
@@ -305,7 +290,7 @@ class BearerResponseTypeTest extends TestCase
         $authorizationValidator = new BearerTokenValidator($accessTokenRepositoryMock);
         $authorizationValidator->setPublicKey(new CryptKey('file://' . __DIR__ . '/../Stubs/public.key'));
 
-        $request = (new ServerRequest())->withHeader('authorization', 'Bearer blah.blah.blah');
+        $request = (new ServerRequest('', ''))->withHeader('authorization', 'Bearer blah.blah.blah');
 
         try {
             $authorizationValidator->validateAuthorization($request);
