@@ -593,10 +593,10 @@ class RefreshTokenGrantTest extends TestCase
         );
 
         $serverRequest = (new ServerRequest())->withParsedBody([
-           'client_id'     => 'foo',
-           'client_secret' => 'bar',
-           'refresh_token' => $encryptedOldRefreshToken,
-           'scope'         =>  'foo bar',
+            'client_id'     => 'foo',
+            'client_secret' => 'bar',
+            'refresh_token' => $encryptedOldRefreshToken,
+            'scope'         =>  'foo bar',
         ]);
 
         $responseType = new StubResponseType();
