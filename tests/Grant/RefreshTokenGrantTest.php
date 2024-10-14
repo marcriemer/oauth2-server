@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LeagueTests\Grant;
 
 use DateInterval;
+use Laminas\Diactoros\ServerRequest;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
@@ -20,7 +21,6 @@ use LeagueTests\Stubs\CryptTraitStub;
 use LeagueTests\Stubs\RefreshTokenEntity;
 use LeagueTests\Stubs\ScopeEntity;
 use LeagueTests\Stubs\StubResponseType;
-use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 
 use function json_encode;
@@ -94,7 +94,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -158,7 +158,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -222,7 +222,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -282,7 +282,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -316,7 +316,7 @@ class RefreshTokenGrantTest extends TestCase
         $grant->setEncryptionKey($this->cryptStub->getKey());
         $grant->setPrivateKey(new CryptKey('file://' . __DIR__ . '/../Stubs/private.key'));
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
         ]);
@@ -350,7 +350,7 @@ class RefreshTokenGrantTest extends TestCase
 
         $oldRefreshToken = 'foobar';
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $oldRefreshToken,
@@ -405,7 +405,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -457,7 +457,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -510,7 +510,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -592,7 +592,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
            'client_id'     => 'foo',
            'client_secret' => 'bar',
            'refresh_token' => $encryptedOldRefreshToken,
@@ -651,7 +651,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
@@ -720,7 +720,7 @@ class RefreshTokenGrantTest extends TestCase
             $oldRefreshToken
         );
 
-        $serverRequest = (new ServerRequest('', ''))->withParsedBody([
+        $serverRequest = (new ServerRequest())->withParsedBody([
             'client_id'     => 'foo',
             'client_secret' => 'bar',
             'refresh_token' => $encryptedOldRefreshToken,
