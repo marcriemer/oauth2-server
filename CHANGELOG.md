@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Support for PHP 8.4 (PR #1454)
 
+### Fixed
+- Fixed device code encryption / decryption and bug where scopes were not set on access token when using device authorization grant (PR #1412)
+
 ## [9.0.1] - released 2024-10-14
 ### Fixed
 - Auto-generated event emitter is now persisted. Previously, a new emitter was generated every time (PR #1428)
