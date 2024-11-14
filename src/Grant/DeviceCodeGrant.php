@@ -158,12 +158,12 @@ class DeviceCodeGrant extends AbstractGrant
 
             if ($shouldSlowDown) {
                 throw OAuthServerException::slowDown(
-                    $this->intervalVisibility ? $deviceCodeEntity->getInterval() : null
+                    interval: $this->intervalVisibility ? $deviceCodeEntity->getInterval() : null
                 );
             }
 
             throw OAuthServerException::authorizationPending(
-                $this->intervalVisibility ? $deviceCodeEntity->getInterval() : null
+                interval: $this->intervalVisibility ? $deviceCodeEntity->getInterval() : null
             );
         }
 
