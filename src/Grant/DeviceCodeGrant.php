@@ -162,9 +162,7 @@ class DeviceCodeGrant extends AbstractGrant
                 );
             }
 
-            throw OAuthServerException::authorizationPending(
-                interval: $this->intervalVisibility ? $deviceCodeEntity->getInterval() : null
-            );
+            throw OAuthServerException::authorizationPending();
         }
 
         if ($deviceCodeEntity->getUserApproved() === false) {
