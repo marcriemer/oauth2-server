@@ -183,7 +183,11 @@ class AuthorizationServerTest extends TestCase
         $privateKey = 'file://' . __DIR__ . '/Stubs/private.key';
         $encryptionKey = 'file://' . __DIR__ . '/Stubs/public.key';
 
+<<<<<<< HEAD
         $responseTypePrototype = new class extends BearerTokenResponse {
+=======
+        $responseTypePrototype = new class () extends BearerTokenResponse {
+>>>>>>> cfd7713c (fix style)
             protected CryptKeyInterface $privateKey;
             protected Key|string|null $encryptionKey = null;
 
