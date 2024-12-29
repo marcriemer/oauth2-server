@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Key permission checks ignored on Windows regardless of userland choice as cannot be run successfully on this OS (PR #1447)
+- Fixed bug on setting interval visibility of device authorization grant (PR #1410)
+- Fix a bug where the new poll date were not persisted when `slow_down` error happens, because the exception is thrown before calling `persistDeviceCode`. (PR #1410)
+- Fix a bug where `slow_down` error response may have been returned even after the user has completed the auth flow (already approved / denied the request). (PR #1410)
 
 ## [9.1.0] - released 2024-11-21
 ### Added
