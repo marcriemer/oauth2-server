@@ -354,7 +354,7 @@ class DeviceCodeGrantTest extends TestCase
         $deviceCodeEntity->setClient($client);
         $deviceCodeEntity->addScope($scope);
 
-        $deviceCodeRepositoryMock->method('getDeviceCodeEntityByDeviceCode')
+        $deviceCodeRepositoryMock->expects(self::once())->method('getDeviceCodeEntityByDeviceCode')
             ->with($deviceCodeEntity->getIdentifier())
             ->willReturn($deviceCodeEntity);
 
@@ -362,7 +362,7 @@ class DeviceCodeGrantTest extends TestCase
         $accessTokenEntity->addScope($scope);
 
         $accessTokenRepositoryMock = $this->getMockBuilder(AccessTokenRepositoryInterface::class)->getMock();
-        $accessTokenRepositoryMock->method('getNewToken')
+        $accessTokenRepositoryMock->expects(self::once())->method('getNewToken')
             ->with($client, $deviceCodeEntity->getScopes(), $deviceCodeEntity->getUserIdentifier())
             ->willReturn($accessTokenEntity);
         $accessTokenRepositoryMock->method('persistNewAccessToken')->willReturnSelf();
