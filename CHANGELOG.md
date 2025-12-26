@@ -5,13 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
-## [9.0.1] - released 2024-10-14
 ### Fixed
-- Auto-generated event emitter is now persisted. Previously, a new emitter was generated every time (PR #1428)
-- Fixed bug where you could not omit a redirect uri even if one had not been specified during the auth request (PR #1428)
-- Fixed bug where "state" parameter wasn't present on `invalid_scope` error response and wasn't on fragment part of `access_denied` redirect URI on Implicit grant (PR #1298) 
-- Fixed bug where disabling refresh token revocation via `revokeRefreshTokens(false)` unintentionally disables issuing new refresh token (PR #1449)
+- In the Auth Code grant, when requesting an access token with an invalid auth code, we now respond with an invalid_grant error instead of invalid_request (PR #1433)
 
 ## [9.0.0] - released 2024-05-13
 ### Added
