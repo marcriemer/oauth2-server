@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- In the Auth Code grant, when requesting an access token with an invalid auth code, we now respond with an invalid_grant error instead of invalid_request (PR #1433)
+- Auto-generated event emitter is now persisted. Previously, a new emitter was generated every time (PR #1428)
+- Fixed bug where you could not omit a redirect uri even if one had not been specified during the auth request (PR #1428)
+- Fixed bug where scopes where not set on access token when using device authorization grant (PR #1412)
 
 ## [9.0.0] - released 2024-05-13
 ### Added
